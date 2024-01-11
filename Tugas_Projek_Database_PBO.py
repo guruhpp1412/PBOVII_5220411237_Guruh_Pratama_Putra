@@ -42,6 +42,9 @@ class Evangelion:
         self.cursor.execute('DELETE FROM evangelion WHERE id_corp = %s', (id,))
         self.connection.commit()
         print("Berhasil Dihapus")
+    
+    def __del__(self):
+        self.connection.close()
 
 class Pilot(Evangelion):
     def __init__(self, id_corp, nama_corp, id_pilot, nama_pilot, umur, asal_pilot):
@@ -89,6 +92,8 @@ class Pilot(Evangelion):
         self.connection.commit()
         print("Berhasil Dihapus")
     
+    def __del__(self):
+        self.connection.close()
 
 class Unit(Pilot):
     def __init__(self, id_corp, nama_corp, id_pilot, nama_pilot, umur, asal_pilot, id_unit, nama_unit, asal_unit):
@@ -134,6 +139,9 @@ class Unit(Pilot):
         self.cursor.execute('DELETE FROM unit WHERE id_unit = %s', (id,))
         self.connection.commit()
         print("Berhasil Dihapus")
+    
+    def __del__(self):
+        self.connection.close()
 
 eva1 = Evangelion(21132, "Nerv Antartika")
 plt1 = Pilot(21132, "Nerv Antartika", 534, "Ikari Gendo", 50, "Jepang")
@@ -234,3 +242,7 @@ semua_unit = unt1.tampilkan_data_unit()
 print('\nSemua Unit:')
 for unt in semua_unit:
     print(unt)
+
+eva1.__del__()
+plt1.__del__()
+unt1.__del__()
